@@ -1,0 +1,130 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>WinUI3</RootNamespace>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <PackageCertificateThumbprint>53E4E9401DC07D07B4ED1DDAF6731554F99F3751</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>logo-winui.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="images\**" />
+    <Compile Remove="image\**" />
+    <Compile Remove="sources\Settings\Grid\**" />
+    <EmbeddedResource Remove="images\**" />
+    <EmbeddedResource Remove="image\**" />
+    <EmbeddedResource Remove="sources\Settings\Grid\**" />
+    <None Remove="images\**" />
+    <None Remove="image\**" />
+    <None Remove="sources\Settings\Grid\**" />
+    <Page Remove="images\**" />
+    <Page Remove="image\**" />
+    <Page Remove="sources\Settings\Grid\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AppTitleBar.xaml" />
+    <None Remove="homepage-image-dark.jpg" />
+    <None Remove="homepage-image-light.jpg" />
+    <None Remove="HomePage.xaml" />
+    <None Remove="LauncherPage.xaml" />
+    <None Remove="PicturesPage.xaml" />
+    <None Remove="SettingsPage.xaml" />
+    <None Remove="sources\Images\homepage-image-dark.jpg" />
+    <None Remove="sources\Images\homepage-image-light.jpg" />
+    <None Remove="sources\Images\launcherpage-image.jpg" />
+    <None Remove="sources\Pages\MusicPage.xaml" />
+    <None Remove="sources\Pages\SearchPage.xaml" />
+    <None Remove="WIP-7th-anniversary-wallpaper-dark.jpg" />
+    <None Remove="WIP-7th-anniversary-wallpaper-light.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="sources\Images\homepage-image-dark.jpg" />
+    <Content Include="sources\Images\homepage-image-light.jpg" />
+    <Content Include="sources\Images\launcherpage-image.jpg" />
+    <Resource Include="logo-winui.ico" />
+    <Resource Include="WIP-7th-anniversary-wallpaper-light.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
+    <PackageReference Include="PInvoke.User32" Version="0.7.104" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+       Tools extension to be activated for this project even if the Windows App SDK Nuget
+       package has not yet been restored -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnablePreviewMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="LauncherPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppTitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="image\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="PicturesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="images\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\Pages\MusicPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties sources_4settings_4picturespage_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
+  <ItemGroup>
+    <PRIResource Remove="sources\Settings\Grid\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\Pages\SearchPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>

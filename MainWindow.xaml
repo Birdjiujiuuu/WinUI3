@@ -1,0 +1,36 @@
+﻿<Window
+    x:Class="WinUI3.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <!--  标题栏  -->
+            <RowDefinition Height="Auto" />
+            <!--  内容区  -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <local:AppTitleBar />
+        <muxc:NavigationView x:Name="NavView"
+                         ItemInvoked="NavView_ItemInvoked"
+                         Loaded="NavView_Loaded"
+                         IsBackButtonVisible="Collapsed" Grid.Row="1" Header="主页">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Name="home" Icon="Home" Content="主页"/>
+                <muxc:NavigationViewItemSeparator/>
+                <muxc:NavigationViewItemHeader x:Name="NavViewHeaderLauncher" Content="启动器"/>
+                <muxc:NavigationViewItem x:Name="Launcher" Content="启动器" Icon="Play" />
+                <muxc:NavigationViewItemHeader x:Name="NavViewHeaderMore" Content="更多"/>
+                <muxc:NavigationViewItem x:Name="Pictures" Icon="Pictures" Content="每日一图" />
+                <muxc:NavigationViewItem x:Name="Music" Icon="Audio" Content="音乐"/>
+                <muxc:NavigationViewItem x:Name="Search" Icon="Find" Content="搜索"/>
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame"/>
+        </muxc:NavigationView>
+    </Grid>
+</Window>
