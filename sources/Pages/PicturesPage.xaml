@@ -39,8 +39,8 @@
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
-                            <TextBlock Name="InfoTitle" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" Text="" TextWrapping="Wrap" Width="400"/>
-                            <TextBlock Name="InfoBody" FontSize="12" Text="" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Name="InfoTitle" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Name="InfoBody" FontSize="12" TextWrapping="Wrap" Width="400"/>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>

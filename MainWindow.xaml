@@ -10,16 +10,24 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <!--  标题栏  -->
-            <RowDefinition Height="Auto" />
-            <!--  内容区  -->
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <local:AppTitleBar />
-        <muxc:NavigationView x:Name="NavView"
-                         ItemInvoked="NavView_ItemInvoked"
-                         Loaded="NavView_Loaded"
-                         IsBackButtonVisible="Collapsed" Grid.Row="1" Header="主页">
+        <Grid x:Name="AppTitleBar"  Height="48">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="10"/>
+                <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="10"/>
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
+                <ColumnDefinition x:Name="LeftDragColumn" Width="*"/>
+                <ColumnDefinition x:Name="SearchColumn" Width="*"/>
+                <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="TitleBarIcon" Source="ms-appx:///Assets/StoreLogo.png" Grid.Column="1" Width="16" Height="16" Margin="8,0,0,0"/>
+            <TextBlock x:Name="TitleTextBlock" Text="神奇的應用程式" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="3" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            <AutoSuggestBox Grid.Column="5" QueryIcon="Find" PlaceholderText="搜索" VerticalAlignment="Center" MinWidth="200" MaxWidth="500" Margin="4,0"/>
+        </Grid>
+        <muxc:NavigationView x:Name="NavView" ItemInvoked="NavView_ItemInvoked" Loaded="NavView_Loaded" IsBackButtonVisible="Collapsed" Grid.Row="1" Header="主页">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="home" Icon="Home" Content="主页"/>
                 <muxc:NavigationViewItemSeparator/>

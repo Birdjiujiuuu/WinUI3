@@ -30,7 +30,7 @@
                 <x:String>网易云音乐</x:String>
             </ComboBox>
         </StackPanel>
-        <WebView2 Grid.Column="1" Grid.Row="2" Name="explorer" Source=""/>
+        <WebView2 Grid.Column="1" Grid.Row="2" Name="explorer"/>
         <MenuFlyoutSeparator Grid.ColumnSpan="3" Grid.Row="3" />
         <Slider Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" />
         <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
