@@ -66,7 +66,7 @@ namespace WinUI3
                 .AddArgument("action", "viewConversation")
                 .AddArgument("conversationId", 9813)
                 .AddText("您已經成功啓動“神奇的應用程式”！")
-                .AddText("您可以盡情使用此應用！")
+                .AddText("神奇的應用程式已更新，您可以盡情使用此應用！")
                 .Show();
 
             Windows.Storage.ApplicationDataContainer localSettings =

@@ -9,7 +9,7 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-    <PackageCertificateThumbprint>53E4E9401DC07D07B4ED1DDAF6731554F99F3751</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>C49058F17142F1C6D8FB5712175A325024D65A3E</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
@@ -23,6 +23,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>logo-winui.ico</ApplicationIcon>
+    <PackageCertificateKeyFile>WinUI3_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="images\**" />
@@ -63,11 +64,8 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="sources\Images\homepage-image-dark.jpg" />
-    <Content Include="sources\Images\homepage-image-light.jpg" />
     <Content Include="sources\Images\launcherpage-image.jpg" />
     <Resource Include="logo-winui.ico" />
-    <Resource Include="WIP-7th-anniversary-wallpaper-light.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -118,7 +116,7 @@
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties sources_4settings_4picturespage_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
   <ItemGroup>
     <PRIResource Remove="sources\Settings\Grid\**" />
   </ItemGroup>

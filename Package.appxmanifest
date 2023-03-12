@@ -8,7 +8,7 @@
 
   <Identity
     Name="Birdjiujiuuu.Magical.App"
-    Publisher="CN=AdminLauncher"
+    Publisher="CN=Birdjiujiuuu"
     Version="1.0.7.0" />
 
   <Properties>

@@ -19,12 +19,15 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ProgressRing/>
         </StackPanel>
-        <Image  Grid.Row="0" Grid.ColumnSpan="6" Name="Picture"/>
+        <Image  Grid.Row="0" Grid.ColumnSpan="9" Name="Picture"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
             <Image Height="20" Width="20" Name="Icon"/>
         </StackPanel>
@@ -35,7 +38,8 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
-            <AppBarButton Icon="Important" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="50">
+                <SymbolIcon Symbol="Important"/>
                 <Button.Flyout>
                     <Flyout>
                         <StackPanel>
@@ -44,8 +48,12 @@
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
-            </AppBarButton>
-            <AppBarButton Icon="Download" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="7" Orientation="Horizontal">
+            <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="50">
+                <SymbolIcon Symbol="Download"/>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>
