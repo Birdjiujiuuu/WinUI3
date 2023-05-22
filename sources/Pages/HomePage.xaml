@@ -5,7 +5,6 @@
     xmlns:local="using:WinUI3"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Loading="Page_Loading"
     mc:Ignorable="d">
 
     <Grid>
@@ -30,31 +29,6 @@
         <StackPanel Orientation="Vertical" Padding="30" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock Text="主页已重塑！" Style="{ThemeResource BaseTextBlockStyle}" FontSize="24"/>
             <TextBlock Text="咕咕咕~全新的主页现已推出！现在，您可以在主页找到全新头图，以及我们精心挑选的背景音乐！剩下的，请尽情享用吧~" FontSize="15"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <Button Width="45" Height="45" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <SymbolIcon Symbol="Audio" />
-                <Button.Flyout>
-                    <Flyout>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="75"/>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
-                                <Image Name="Picture" Width="75" Height="75"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2">
-                                <TextBlock Name="BgmName" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" TextWrapping="Wrap" Width="200"/>
-                                <TextBlock Name="BgmAuthor" FontSize="12" TextWrapping="Wrap" Width="200"/>
-                            </StackPanel>
-                           
-                        </Grid>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-            
         </StackPanel>
     </Grid>
 </Page>

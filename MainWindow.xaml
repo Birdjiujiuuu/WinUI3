@@ -24,20 +24,49 @@
                 <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="TitleBarIcon" Source="ms-appx:///Assets/StoreLogo.png" Grid.Column="1" Width="16" Height="16" Margin="8,0,0,0"/>
-            <TextBlock x:Name="TitleTextBlock" Text="神奇的應用程式" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="3" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            <TextBlock x:Name="TitleTextBlock" Text="神奇的應用程式 Preview" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="3" VerticalAlignment="Center" Margin="4,0,0,0"/>
             <AutoSuggestBox Grid.Column="5" QueryIcon="Find" PlaceholderText="搜索" VerticalAlignment="Center" MinWidth="200" MaxWidth="500" Margin="4,0"/>
         </Grid>
         <muxc:NavigationView x:Name="NavView" ItemInvoked="NavView_ItemInvoked" Loaded="NavView_Loaded" IsBackButtonVisible="Collapsed" Grid.Row="1" Header="主页">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="home" Icon="Home" Content="主页"/>
                 <muxc:NavigationViewItemSeparator/>
-                <muxc:NavigationViewItemHeader x:Name="NavViewHeaderLauncher" Content="启动器"/>
-                <muxc:NavigationViewItem x:Name="Launcher" Content="启动器" Icon="Play" />
                 <muxc:NavigationViewItemHeader x:Name="NavViewHeaderMore" Content="更多"/>
                 <muxc:NavigationViewItem x:Name="Pictures" Icon="Pictures" Content="每日一图" />
                 <muxc:NavigationViewItem x:Name="Music" Icon="Audio" Content="音乐"/>
                 <muxc:NavigationViewItem x:Name="Search" Icon="Find" Content="搜索"/>
             </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.PaneFooter>
+                <StackPanel x:Name="FooterStackPanel" Orientation="Vertical">
+                    <NavigationViewItem Name="BGM" Icon="Play" Content="正在播放" Tapped="BGM_Tapped">
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="290"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Name="CoverImage" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <TextBlock Name="MusicName" Grid.Column="2" Grid.Row="0" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" TextWrapping="Wrap"/>
+                                    <TextBlock Name="MusicAuthor" Grid.Column="2" Grid.Row="1" FontSize="12"/>
+                                    <MediaPlayerElement Name="MediaPlayer"  Grid.ColumnSpan="3" Grid.Row="3" Width="400" AreTransportControlsEnabled="True">
+                                        <MediaPlayerElement.TransportControls>
+                                            <MediaTransportControls IsZoomButtonVisible="False" IsCompact="True"/>
+                                        </MediaPlayerElement.TransportControls>
+                                    </MediaPlayerElement>
+                                </Grid>
+                            </Flyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </NavigationViewItem>
+                </StackPanel>
+            </muxc:NavigationView.PaneFooter>
             <Frame x:Name="ContentFrame"/>
         </muxc:NavigationView>
     </Grid>
