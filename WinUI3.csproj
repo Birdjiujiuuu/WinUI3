@@ -49,6 +49,7 @@
     <None Remove="sources\Images\homepage-image-dark.jpg" />
     <None Remove="sources\Images\homepage-image-light.jpg" />
     <None Remove="sources\Pages\MusicPage.xaml" />
+    <None Remove="sources\Pages\NoticePage.xaml" />
     <None Remove="sources\Pages\SearchPage.xaml" />
     <None Remove="WIP-7th-anniversary-wallpaper-dark.jpg" />
     <None Remove="WIP-7th-anniversary-wallpaper-light.jpg" />
@@ -124,5 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sources\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\Pages\NoticePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

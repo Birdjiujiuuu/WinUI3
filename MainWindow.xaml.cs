@@ -1,23 +1,14 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
-using Windows.UI.Core;
 using Microsoft.Toolkit.Uwp.Notifications;
 using WinUI3.sources.Pages;
-using Windows.Storage;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
 using System.Runtime.InteropServices;
@@ -26,7 +17,6 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Net;
 using System.Text;
 using Windows.Media.Core;
-using Windows.Media.Playback;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -214,7 +204,7 @@ namespace WinUI3
             if (args.InvokedItemContainer == home)
             {
                 ContentFrame.Navigate(typeof(HomePage), null);
-                NavView.Header = "主页";
+                NavView.Header = home.Content;
             }
             else if (args.IsSettingsInvoked)
             {
@@ -224,17 +214,22 @@ namespace WinUI3
             else if (args.InvokedItemContainer == Pictures)
             {
                 ContentFrame.Navigate(typeof(PicturesPage), null, new DrillInNavigationTransitionInfo());
-                NavView.Header = "每日一图";
+                NavView.Header = Pictures.Content;
             }
             else if (args.InvokedItemContainer == Music)
             {
                 ContentFrame.Navigate(typeof(MusicPage), null, new DrillInNavigationTransitionInfo());
-                NavView.Header = "音乐";
+                NavView.Header = Music.Content;
             }
             else if (args.InvokedItemContainer == Search)
             {
                 ContentFrame.Navigate(typeof(SearchPage), null, new DrillInNavigationTransitionInfo());
-                NavView.Header = "搜索";
+                NavView.Header = Search.Content;
+            }
+            else if (args.InvokedItemContainer == Notice)
+            {
+                ContentFrame.Navigate(typeof(NoticePage), null, new DrillInNavigationTransitionInfo());
+                NavView.Header = Notice.Content;
             }
         }
 
