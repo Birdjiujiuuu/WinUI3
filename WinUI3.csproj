@@ -27,16 +27,12 @@
   <ItemGroup>
     <Compile Remove="images\**" />
     <Compile Remove="image\**" />
-    <Compile Remove="sources\Settings\Grid\**" />
     <EmbeddedResource Remove="images\**" />
     <EmbeddedResource Remove="image\**" />
-    <EmbeddedResource Remove="sources\Settings\Grid\**" />
     <None Remove="images\**" />
     <None Remove="image\**" />
-    <None Remove="sources\Settings\Grid\**" />
     <Page Remove="images\**" />
     <Page Remove="image\**" />
-    <Page Remove="sources\Settings\Grid\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppTitleBar.xaml" />
@@ -50,7 +46,9 @@
     <None Remove="sources\Images\homepage-image-light.jpg" />
     <None Remove="sources\Pages\MusicPage.xaml" />
     <None Remove="sources\Pages\NoticePage.xaml" />
+    <None Remove="sources\Pages\OfflinePage.xaml" />
     <None Remove="sources\Pages\SearchPage.xaml" />
+    <None Remove="sources\UI\Controls\ContentControl.xaml" />
     <None Remove="WIP-7th-anniversary-wallpaper-dark.jpg" />
     <None Remove="WIP-7th-anniversary-wallpaper-light.jpg" />
   </ItemGroup>
@@ -116,15 +114,23 @@
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
   <ItemGroup>
-    <PRIResource Remove="sources\Settings\Grid\**" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="sources\Pages\SearchPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="sources\Images\" />
+    <Folder Include="Strings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\Pages\OfflinePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\UI\Controls\ContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="sources\Pages\NoticePage.xaml">

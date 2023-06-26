@@ -9,7 +9,7 @@
   <Identity
     Name="Birdjiujiuuu.Magical.App"
     Publisher="CN=Birdjiujiuuu"
-    Version="1.0.7.0" />
+    Version="1.0.8.0" />
 
   <Properties>
     <DisplayName>神奇的應用程式</DisplayName>

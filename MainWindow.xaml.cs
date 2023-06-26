@@ -17,6 +17,12 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Net;
 using System.Text;
 using Windows.Media.Core;
+using Microsoft.UI.Xaml.Media;
+using Windows.Storage;
+using WinUI3;
+using System.Net.NetworkInformation;
+using Windows.ApplicationModel;
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,6 +39,9 @@ namespace WinUI3
         public MainWindow()
         {
             this.InitializeComponent();
+            this.Title = TitleTextBlock.Text;
+
+            SystemBackdrop = new MicaBackdrop() { Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt};
 
             m_AppWindow = GetAppWindowForCurrentWindow();
             m_AppWindow.Changed += AppWindow_Changed;
@@ -56,18 +65,6 @@ namespace WinUI3
                 // Show alternative UI for any functionality in
                 // the title bar, such as search.
             }
-
-            new ToastContentBuilder()
-                .AddArgument("action", "viewConversation")
-                .AddArgument("conversationId", 9813)
-                .AddText("您已經成功啓動“神奇的應用程式”！")
-                .AddText("神奇的應用程式已更新，您可以盡情使用此應用！")
-                .Show();
-
-            Windows.Storage.ApplicationDataContainer localSettings =
-                Windows.Storage.ApplicationData.Current.LocalSettings;
-            Windows.Storage.StorageFolder localFolder =
-                Windows.Storage.ApplicationData.Current.LocalFolder;
         }
 
         private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
@@ -228,7 +225,7 @@ namespace WinUI3
             }
             else if (args.InvokedItemContainer == Notice)
             {
-                ContentFrame.Navigate(typeof(NoticePage), null, new DrillInNavigationTransitionInfo());
+                ContentFrame.Navigate(typeof(NoticePage), null);
                 NavView.Header = Notice.Content;
             }
         }
@@ -236,6 +233,7 @@ namespace WinUI3
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             ContentFrame.Navigate(typeof(HomePage), null);
+            NavView.Header = home.Content;
 
             string url = "https://birdjiujiuuu.github.io/magicapp/source/winui3/home/bgm.txt";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);

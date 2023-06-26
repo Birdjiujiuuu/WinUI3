@@ -3,9 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WinUI3"
+    xmlns:controls="using:WinUI3.sources.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled"
+    Loading="Page_Loading">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,27 +17,66 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
-        <StackPanel MaxWidth="5000" Grid.Column="1" Grid.Row="1">
-            <StackPanel.Resources>
-                <Style TargetType="Expander">
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </StackPanel.Resources>
-            <Expander Header="Choose your crust">...</Expander>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <!--动画-->
+                <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition IsStaggeringEnabled="True" FromVerticalOffset="500"/>
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            <!--内容-->
+                <controls:ContentControl
+                Header="外观"
+                Description="切换浅色/深色模式">
+                <controls:ContentControl.Icon>
+                    <FontIcon Glyph="&#xE790;"/>
+                </controls:ContentControl.Icon>
+                <ComboBox x:Name="ColorMode" SelectionChanged="ColorMode_SelectionChanged">
+                    <x:String>使用 Windows 默认</x:String>
+                    <x:String>浅色</x:String>
+                    <x:String>深色</x:String>
+                </ComboBox>
+            </controls:ContentControl>
             <Grid Height="5"/>
-            <Expander Header="Choose your sauce">...</Expander>
+            <controls:ContentControl
+                Header="语言"
+                Description="选择应用要显示的语言">
+                <controls:ContentControl.Icon>
+                    <FontIcon Glyph="&#xF2B7;"/>
+                </controls:ContentControl.Icon>
+                <ComboBox x:Name="Language">
+                    <x:String>一种很新的语言(天朝)</x:String>
+                    <x:String>简体中文</x:String>
+                    <x:String>繁體中文</x:String>
+                    <x:String>日本語</x:String>
+                    <x:String>English</x:String>
+                </ComboBox>
+            </controls:ContentControl>
             <Grid Height="5"/>
-            <Expander Header="应用更新">
-                <Grid>
-                    <Button Name="Update" Content="检查更新" Style="{StaticResource AccentButtonStyle}"/>
-                    <ProgressRing HorizontalContentAlignment="Left"/>
-                </Grid>
-            </Expander>
+            <controls:ContentControl
+                x:Name="AppVersion"
+                Header="版本更新">
+                <controls:ContentControl.Icon>
+                    <FontIcon Glyph="&#xE895;"/>
+                </controls:ContentControl.Icon>
+                <Button x:Name="CheckUpdate" Content="检查更新" Style="{StaticResource AccentButtonStyle}" Click="CheckUpdate_Click"/>
+            </controls:ContentControl>
+            <Grid Height="5"/>
+            <controls:ContentControl
+                Image="ms-appx:///Assets/StoreLogo.png"
+                Header="神奇的應用程式"
+                Description="©2023 Birdjiujiuuu">
+                <RichTextBlock>
+                    <Paragraph>
+                        <Hyperlink NavigateUri="https://birdjiujiuuu.github.io/magicapp/">官方网站</Hyperlink>
+                        <Hyperlink NavigateUri="https://github.com/Birdjiujiuuu/WinUI3">源代码</Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+            </controls:ContentControl>
         </StackPanel>
     </Grid>
 </Page>

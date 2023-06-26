@@ -94,7 +94,7 @@ namespace WinUI3.sources.Pages
             if (Text.Text == "Google")
             {
                 string url = "https://www.google.com/search?q=" + SearchBox.Text;
-                System.Diagnostics.Process.Start("explorer.exe",url);
+                System.Diagnostics.Process.Start("explorer.exe", "https://www.google.com/search?q=" + SearchBox.Text);
             }
 
             else if (Text.Text == "Bing")
