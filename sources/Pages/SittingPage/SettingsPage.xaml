@@ -69,7 +69,7 @@
             <controls:ContentControl
                 Image="ms-appx:///Assets/StoreLogo.png"
                 Header="神奇的應用程式"
-                Description="©2023 Birdjiujiuuu">
+                Description="©2024 Birdjiujiuuu">
                 <RichTextBlock>
                     <Paragraph>
                         <Hyperlink NavigateUri="https://birdjiujiuuu.github.io/magicapp/">官方网站</Hyperlink>

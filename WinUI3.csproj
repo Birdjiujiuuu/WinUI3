@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
@@ -18,7 +18,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <DefaultLanguage>zh-Hant</DefaultLanguage>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>logo-winui.ico</ApplicationIcon>
@@ -48,6 +48,7 @@
     <None Remove="sources\Pages\NoticePage.xaml" />
     <None Remove="sources\Pages\OfflinePage.xaml" />
     <None Remove="sources\Pages\SearchPage.xaml" />
+    <None Remove="sources\Pages\TranslatePage.xaml" />
     <None Remove="sources\UI\Controls\ContentControl.xaml" />
     <None Remove="WIP-7th-anniversary-wallpaper-dark.jpg" />
     <None Remove="WIP-7th-anniversary-wallpaper-light.jpg" />
@@ -66,8 +67,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230502000" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.25363-preview" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.240211001" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26031-preview" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PInvoke.User32" Version="0.7.124" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -105,6 +107,9 @@
     <PRIResource Remove="images\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="新建 文本文档.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="sources\Pages\MusicPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +126,11 @@
   <ItemGroup>
     <Folder Include="sources\Images\" />
     <Folder Include="Strings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="sources\Pages\TranslatePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="sources\Pages\OfflinePage.xaml">

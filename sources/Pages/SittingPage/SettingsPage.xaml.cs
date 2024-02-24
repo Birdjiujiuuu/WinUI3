@@ -19,6 +19,8 @@ using Windows.Foundation.Collections;
 using Windows.Security.Authentication.Web;
 using WinUI3;
 using System.Diagnostics;
+using ABI.System;
+using System.Net.Http;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -60,70 +62,78 @@ namespace WinUI3
 
         private async void CheckUpdate_Click(object sender, RoutedEventArgs e)
         {
-            Ping ping = new Ping();
-            PingReply reply = ping.Send("birdjiujiuuu.github.io");
-            if (reply.Status == IPStatus.Success)
+            using (var httpClient = new HttpClient())
             {
-                string url = "https://birdjiujiuuu.github.io/magicapp/history/version.html";
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "text/html;charset=UTF-8";
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream myresponsestream = response.GetResponseStream();
-                StreamReader streamReader = new StreamReader(myresponsestream, Encoding.UTF8);
-                string retString = streamReader.ReadToEnd();
-                streamReader.Close();
-                myresponsestream.Close();
-                int a = retString.IndexOf("winui3:");
-                int b = retString.IndexOf(":winui3");
-                string newestversion = retString.Substring(a + 7, b - a - 7);
-                string version = string.Format("{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
-                if (newestversion == version)
+                try
+                {
+                    string url = "https://birdjiujiuuu.github.io/magicapp/history/version.html";
+                    // 发送GET请求
+                    var response = await httpClient.GetAsync(url);
+
+                    // 检查请求是否成功
+                    if (response.IsSuccessStatusCode)
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                        request.Method = "GET";
+                        request.ContentType = "text/html;charset=UTF-8";
+                        HttpWebResponse response1 = (HttpWebResponse)request.GetResponse();
+                        Stream myresponsestream = response1.GetResponseStream();
+                        StreamReader streamReader = new StreamReader(myresponsestream, Encoding.UTF8);
+                        string retString = streamReader.ReadToEnd();
+                        streamReader.Close();
+                        myresponsestream.Close();
+                        int a = retString.IndexOf("winui3:");
+                        int b = retString.IndexOf(":winui3");
+                        string newestversion = retString.Substring(a + 7, b - a - 7);
+                        string version = string.Format("{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
+                        if (newestversion == version)
+                        {
+                            ContentDialog dialog = new ContentDialog();
+                            dialog.XamlRoot = this.XamlRoot;
+                            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                            dialog.Title = "检查更新";
+                            dialog.Content = "已经是最新版本！";
+                            dialog.CloseButtonText = "确定";
+                            dialog.DefaultButton = ContentDialogButton.Close;
+
+                            var result = await dialog.ShowAsync();
+                        }
+                        else
+                        {
+                            ContentDialog dialog = new ContentDialog();
+                            dialog.XamlRoot = this.XamlRoot;
+                            dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
+                            dialog.Title = "检查更新";
+                            dialog.Content = "发现新版本！";
+                            dialog.PrimaryButtonText = "前往下载";
+                            dialog.CloseButtonText = "稍后下载";
+                            dialog.DefaultButton = ContentDialogButton.Primary;
+
+                            var result = await dialog.ShowAsync();
+
+                            if (result == ContentDialogResult.Primary)
+                            {
+                                System.Diagnostics.Process.Start("explorer.exe", "https://github.com/Birdjiujiuuu/WinUI3/releases");
+                            }
+                            else
+                            {
+                                // Do nothing.
+                            }
+                        }
+                    }
+                }
+                catch
                 {
                     ContentDialog dialog = new ContentDialog();
                     dialog.XamlRoot = this.XamlRoot;
                     dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
                     dialog.Title = "检查更新";
-                    dialog.Content = "已经是最新版本！";
+                    dialog.Content = "无法连接至服务器，请检查网络后重试";
                     dialog.CloseButtonText = "确定";
                     dialog.DefaultButton = ContentDialogButton.Close;
 
                     var result = await dialog.ShowAsync();
                 }
-                else
-                {
-                    ContentDialog dialog = new ContentDialog();
-                    dialog.XamlRoot = this.XamlRoot;
-                    dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                    dialog.Title = "检查更新";
-                    dialog.Content = "发现新版本！";
-                    dialog.PrimaryButtonText = "前往下载";
-                    dialog.CloseButtonText = "稍后下载";
-                    dialog.DefaultButton = ContentDialogButton.Primary;
-
-                    var result = await dialog.ShowAsync();
-
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        System.Diagnostics.Process.Start("explorer.exe", "https://github.com/Birdjiujiuuu/WinUI3/releases");
-                    }
-                    else
-                    {
-                        // Do nothing.
-                    }
-                }
-            }
-            else
-            {
-                ContentDialog dialog = new ContentDialog();
-                dialog.XamlRoot = this.XamlRoot;
-                dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                dialog.Title = "检查更新";
-                dialog.Content = "无法连接至服务器，请检查网络后重试";
-                dialog.CloseButtonText = "确定";
-                dialog.DefaultButton = ContentDialogButton.Close;
-
-                var result = await dialog.ShowAsync();
             }
         }
     }

@@ -41,6 +41,7 @@
                 <muxc:NavigationViewItem x:Name="Pictures" Icon="Pictures" Content="每日一图" />
                 <muxc:NavigationViewItem x:Name="Music" Icon="Audio" Content="音乐"/>
                 <muxc:NavigationViewItem x:Name="Search" Icon="Find" Content="搜索"/>
+                <muxc:NavigationViewItem x:Name="Translate" Icon="World" Content="翻译"/>
                 <muxc:NavigationViewItemSeparator/>
                 <muxc:NavigationViewItemHeader x:Name="NavViewHeaderTools" Content="小工具"/>
                 <muxc:NavigationViewItem x:Name="Notice" Icon="Message" Content="桌面通知" />

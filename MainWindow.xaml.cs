@@ -22,6 +22,7 @@ using Windows.Storage;
 using WinUI3;
 using System.Net.NetworkInformation;
 using Windows.ApplicationModel;
+using System.Net.Http;
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -41,7 +42,7 @@ namespace WinUI3
             this.InitializeComponent();
             this.Title = TitleTextBlock.Text;
 
-            SystemBackdrop = new MicaBackdrop() { Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt};
+            SystemBackdrop = new MicaBackdrop() { Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt };
 
             m_AppWindow = GetAppWindowForCurrentWindow();
             m_AppWindow.Changed += AppWindow_Changed;
@@ -223,6 +224,11 @@ namespace WinUI3
                 ContentFrame.Navigate(typeof(SearchPage), null, new DrillInNavigationTransitionInfo());
                 NavView.Header = Search.Content;
             }
+            else if (args.InvokedItemContainer == Translate)
+            {
+                ContentFrame.Navigate(typeof(TranslatePage), null, new DrillInNavigationTransitionInfo());
+                NavView.Header = Translate.Content;
+            }
             else if (args.InvokedItemContainer == Notice)
             {
                 ContentFrame.Navigate(typeof(NoticePage), null);
@@ -230,41 +236,59 @@ namespace WinUI3
             }
         }
 
-        private void NavView_Loaded(object sender, RoutedEventArgs e)
+        private async void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             ContentFrame.Navigate(typeof(HomePage), null);
             NavView.Header = home.Content;
 
-            string url = "https://birdjiujiuuu.github.io/magicapp/source/winui3/home/bgm.txt";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "text/html;charset=UTF-8";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream myresponsestream = response.GetResponseStream();
-            StreamReader streamReader = new StreamReader(myresponsestream, Encoding.UTF8);
-            string retString = streamReader.ReadToEnd();
-            streamReader.Close();
-            myresponsestream.Close();
-            int Ida = retString.IndexOf("<id>");
-            int Idb = retString.IndexOf("</id>");
-            string BgmMedia = "https://music.163.com/song/media/outer/url?id=" + retString.Substring(Ida + 4, Idb - Ida - 4) + ".mp3";
-            int BgmNamea = retString.IndexOf("<name>");
-            int BgmNameb = retString.IndexOf("</name>");
-            string BgmNameAB = retString.Substring(BgmNamea + 6, BgmNameb - BgmNamea - 6);
-            int BgmAuthora = retString.IndexOf("<artist>");
-            int BgmAuthorb = retString.IndexOf("</artist>");
-            string BgmAuthorAB = retString.Substring(BgmAuthora + 8, BgmAuthorb - BgmAuthora - 8);
-            int Covera = retString.IndexOf("<cover>");
-            int Coverb = retString.IndexOf("</cover>");
-            string Cover = retString.Substring(Covera + 7, Coverb - Covera - 7);
-            //各种抓取和解析
-            Uri BgmUri = new Uri(BgmMedia);
-            MediaPlayer.Source = MediaSource.CreateFromUri(BgmUri);
-            BitmapImage CoverUri = new BitmapImage();
-            CoverUri.UriSource = new Uri(Cover);
-            CoverImage.Source = CoverUri;
-            MusicName.Text = BgmNameAB;
-            MusicAuthor.Text = BgmAuthorAB;
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    string url = "https://birdjiujiuuu.github.io/magicapp/source/winui3/home/bgm.txt";
+                    // 发送GET请求
+                    var response = await httpClient.GetAsync(url);
+
+                    // 检查请求是否成功
+                    if (response.IsSuccessStatusCode)
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                        request.Method = "GET";
+                        request.ContentType = "text/html;charset=UTF-8";
+                        HttpWebResponse response1 = (HttpWebResponse)request.GetResponse();
+                        Stream myresponsestream = response1.GetResponseStream();
+                        StreamReader streamReader = new StreamReader(myresponsestream, Encoding.UTF8);
+                        string retString = streamReader.ReadToEnd();
+                        streamReader.Close();
+                        myresponsestream.Close();
+                        int Ida = retString.IndexOf("<id>");
+                        int Idb = retString.IndexOf("</id>");
+                        string BgmMedia = "https://music.163.com/song/media/outer/url?id=" + retString.Substring(Ida + 4, Idb - Ida - 4) + ".mp3";
+                        int BgmNamea = retString.IndexOf("<name>");
+                        int BgmNameb = retString.IndexOf("</name>");
+                        string BgmNameAB = retString.Substring(BgmNamea + 6, BgmNameb - BgmNamea - 6);
+                        int BgmAuthora = retString.IndexOf("<artist>");
+                        int BgmAuthorb = retString.IndexOf("</artist>");
+                        string BgmAuthorAB = retString.Substring(BgmAuthora + 8, BgmAuthorb - BgmAuthora - 8);
+                        int Covera = retString.IndexOf("<cover>");
+                        int Coverb = retString.IndexOf("</cover>");
+                        string Cover = retString.Substring(Covera + 7, Coverb - Covera - 7);
+                        //各种抓取和解析
+                        Uri BgmUri = new Uri(BgmMedia);
+                        MediaPlayer.Source = MediaSource.CreateFromUri(BgmUri);
+                        BitmapImage CoverUri = new BitmapImage();
+                        CoverUri.UriSource = new Uri(Cover);
+                        CoverImage.Source = CoverUri;
+                        MusicName.Text = BgmNameAB;
+                        MusicAuthor.Text = BgmAuthorAB;
+                    }
+                }
+                catch
+                {
+                    MusicName.Text = "当前无网络";
+                    MusicAuthor.Text = "请检查您的网络连接";
+                }
+            }
         }
 
         private void BGM_Tapped(object sender, TappedRoutedEventArgs e)
