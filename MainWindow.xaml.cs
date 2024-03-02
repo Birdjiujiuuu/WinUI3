@@ -224,11 +224,6 @@ namespace WinUI3
                 ContentFrame.Navigate(typeof(SearchPage), null, new DrillInNavigationTransitionInfo());
                 NavView.Header = Search.Content;
             }
-            else if (args.InvokedItemContainer == Translate)
-            {
-                ContentFrame.Navigate(typeof(TranslatePage), null, new DrillInNavigationTransitionInfo());
-                NavView.Header = Translate.Content;
-            }
             else if (args.InvokedItemContainer == Notice)
             {
                 ContentFrame.Navigate(typeof(NoticePage), null);
@@ -236,10 +231,28 @@ namespace WinUI3
             }
         }
 
-        private async void NavView_Loaded(object sender, RoutedEventArgs e)
+        private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             ContentFrame.Navigate(typeof(HomePage), null);
             NavView.Header = home.Content;
+
+            this.MusicRefresh_Click(null, null);
+        }
+
+        private void BGM_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            FrameworkElement Info = sender as FrameworkElement;
+            if (Info != null)
+            {
+                FlyoutBase.ShowAttachedFlyout(Info);
+            }
+        }
+
+        private async void MusicRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            MusicRefreshFailTip.Text = "";
+            MusicRefreshProgressRing.IsActive = true;
+            MusicRefresh.IsEnabled = false;
 
             using (var httpClient = new HttpClient())
             {
@@ -285,18 +298,13 @@ namespace WinUI3
                 }
                 catch
                 {
-                    MusicName.Text = "当前无网络";
-                    MusicAuthor.Text = "请检查您的网络连接";
+                    MusicRefreshFailTip.Text = "加载失败，请重试！";
                 }
-            }
-        }
-
-        private void BGM_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            FrameworkElement Info = sender as FrameworkElement;
-            if (Info != null)
-            {
-                FlyoutBase.ShowAttachedFlyout(Info);
+                finally 
+                {
+                    MusicRefreshProgressRing.IsActive = false;
+                    MusicRefresh.IsEnabled = true;
+                }
             }
         }
     }

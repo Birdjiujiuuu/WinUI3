@@ -62,6 +62,9 @@ namespace WinUI3
 
         private async void CheckUpdate_Click(object sender, RoutedEventArgs e)
         {
+            CheckUpdate.IsEnabled = false;
+            CheckUpdateProgressRing.IsActive = true;
+
             using (var httpClient = new HttpClient())
             {
                 try
@@ -86,6 +89,8 @@ namespace WinUI3
                         int b = retString.IndexOf(":winui3");
                         string newestversion = retString.Substring(a + 7, b - a - 7);
                         string version = string.Format("{0}.{1}.{2}.{3}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
+
+                        CheckUpdateProgressRing.IsActive = false;
                         if (newestversion == version)
                         {
                             ContentDialog dialog = new ContentDialog();
@@ -103,8 +108,8 @@ namespace WinUI3
                             ContentDialog dialog = new ContentDialog();
                             dialog.XamlRoot = this.XamlRoot;
                             dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
-                            dialog.Title = "检查更新";
-                            dialog.Content = "发现新版本！";
+                            dialog.Title = (newestversion + " 更新！");
+                            dialog.Content = "发现新版本,现在可以进行更新！";
                             dialog.PrimaryButtonText = "前往下载";
                             dialog.CloseButtonText = "稍后下载";
                             dialog.DefaultButton = ContentDialogButton.Primary;
@@ -124,6 +129,7 @@ namespace WinUI3
                 }
                 catch
                 {
+                    CheckUpdateProgressRing.IsActive = false;
                     ContentDialog dialog = new ContentDialog();
                     dialog.XamlRoot = this.XamlRoot;
                     dialog.Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style;
@@ -133,6 +139,10 @@ namespace WinUI3
                     dialog.DefaultButton = ContentDialogButton.Close;
 
                     var result = await dialog.ShowAsync();
+                }
+                finally
+                {
+                    CheckUpdate.IsEnabled = true;
                 }
             }
         }

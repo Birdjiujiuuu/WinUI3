@@ -29,7 +29,7 @@ namespace WinUI3.sources.Pages
                 .Show();
         }
 
-        private async void PickLogo_Click(object sender, RoutedEventArgs e)
+        private void PickLogo_Click(object sender, RoutedEventArgs e)
         {
 
         }

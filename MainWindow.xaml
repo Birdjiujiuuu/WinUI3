@@ -25,13 +25,49 @@
                 <ColumnDefinition x:Name="LeftDragColumn" Width="*"/>
                 <ColumnDefinition x:Name="SearchColumn" Width="*"/>
                 <ColumnDefinition x:Name="RightDragColumn" Width="*"/>
+                <ColumnDefinition x:Name="MusicColumn" Width="50"/>
+                <ColumnDefinition x:Name="BetweenColumn" Width="10"/>
                 <ColumnDefinition x:Name="PersonPictureColumn" Width="30"/>
                 <ColumnDefinition x:Name="Column" Width="150"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="TitleBarIcon" Source="ms-appx:///Assets/StoreLogo.png" Grid.Column="1" Width="16" Height="16" Margin="8,0,0,0"/>
             <TextBlock x:Name="TitleTextBlock" Text="神奇的應用程式 Preview" Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="3" VerticalAlignment="Center" Margin="4,0,0,0"/>
             <AutoSuggestBox Grid.Column="5" QueryIcon="Find" PlaceholderText="搜索" VerticalAlignment="Center" MinWidth="200" MaxWidth="500" Margin="4,0"/>
-            <PersonPicture Grid.Column="7" Height="30"/>
+            <AppBarButton Grid.Column="7" Height="50" Width="50" Icon="Audio" Tapped="BGM_Tapped">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="290"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Name="CoverImage" Grid.Column="0" Grid.RowSpan="3"/>
+                            <TextBlock Name="MusicName" Grid.Column="2" Grid.Row="0" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" TextWrapping="Wrap" Text="无音乐"/>
+                            <TextBlock Name="MusicAuthor" Grid.Column="2" Grid.Row="1" FontSize="12" Text="-"/>
+                            <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Grid>
+                                    <ProgressRing Name="MusicRefreshProgressRing" HorizontalAlignment="Right" IsActive="True"/>
+                                    <TextBlock Name="MusicRefreshFailTip" VerticalAlignment="Center"/>
+                                </Grid>
+                                <AppBarButton Name="MusicRefresh" Width="50" Height="50" Icon="Refresh" Click="MusicRefresh_Click"/>
+                            </StackPanel>
+                            <MediaPlayerElement Name="MediaPlayer"  Grid.ColumnSpan="3" Grid.Row="3" Width="400" AreTransportControlsEnabled="True" AutoPlay="True">
+                                <MediaPlayerElement.TransportControls>
+                                    <MediaTransportControls IsZoomButtonVisible="False" IsCompact="True"/>
+                                </MediaPlayerElement.TransportControls>
+                            </MediaPlayerElement>
+                        </Grid>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </AppBarButton>
+            <PersonPicture Grid.Column="9" Height="30"/>
         </Grid>
         <muxc:NavigationView x:Name="NavView" ItemInvoked="NavView_ItemInvoked" Loaded="NavView_Loaded" IsBackButtonVisible="Collapsed" Grid.Row="1">
             <muxc:NavigationView.MenuItems>
@@ -41,42 +77,10 @@
                 <muxc:NavigationViewItem x:Name="Pictures" Icon="Pictures" Content="每日一图" />
                 <muxc:NavigationViewItem x:Name="Music" Icon="Audio" Content="音乐"/>
                 <muxc:NavigationViewItem x:Name="Search" Icon="Find" Content="搜索"/>
-                <muxc:NavigationViewItem x:Name="Translate" Icon="World" Content="翻译"/>
                 <muxc:NavigationViewItemSeparator/>
                 <muxc:NavigationViewItemHeader x:Name="NavViewHeaderTools" Content="小工具"/>
                 <muxc:NavigationViewItem x:Name="Notice" Icon="Message" Content="桌面通知" />
             </muxc:NavigationView.MenuItems>
-            <muxc:NavigationView.PaneFooter>
-                <StackPanel x:Name="FooterStackPanel" Orientation="Vertical">
-                    <NavigationViewItem Name="BGM" Icon="Play" Content="正在播放" Tapped="BGM_Tapped">
-                        <FlyoutBase.AttachedFlyout>
-                            <Flyout>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="290"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="50"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Image Name="CoverImage" Grid.Column="0" Grid.RowSpan="3"/>
-                                    <TextBlock Name="MusicName" Grid.Column="2" Grid.Row="0" Style="{ThemeResource BaseTextBlockStyle}" FontSize="18" TextWrapping="Wrap"/>
-                                    <TextBlock Name="MusicAuthor" Grid.Column="2" Grid.Row="1" FontSize="12"/>
-                                    <MediaPlayerElement Name="MediaPlayer"  Grid.ColumnSpan="3" Grid.Row="3" Width="400" AreTransportControlsEnabled="True">
-                                        <MediaPlayerElement.TransportControls>
-                                            <MediaTransportControls IsZoomButtonVisible="False" IsCompact="True"/>
-                                        </MediaPlayerElement.TransportControls>
-                                    </MediaPlayerElement>
-                                </Grid>
-                            </Flyout>
-                        </FlyoutBase.AttachedFlyout>
-                    </NavigationViewItem>
-                </StackPanel>
-            </muxc:NavigationView.PaneFooter>
             <Frame x:Name="ContentFrame"/>
         </muxc:NavigationView>
     </Grid>

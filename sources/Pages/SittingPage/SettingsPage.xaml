@@ -63,7 +63,11 @@
                 <controls:ContentControl.Icon>
                     <FontIcon Glyph="&#xE895;"/>
                 </controls:ContentControl.Icon>
-                <Button x:Name="CheckUpdate" Content="检查更新" Style="{StaticResource AccentButtonStyle}" Click="CheckUpdate_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <ProgressRing x:Name="CheckUpdateProgressRing" IsActive="False"/>
+                    <StackPanel Width="5"/>
+                    <Button x:Name="CheckUpdate" Content="检查更新" Style="{StaticResource AccentButtonStyle}" Click="CheckUpdate_Click"/>
+                </StackPanel>
             </controls:ContentControl>
             <Grid Height="5"/>
             <controls:ContentControl
