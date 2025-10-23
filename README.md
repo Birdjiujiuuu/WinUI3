@@ -1,2 +1,1 @@
-这只是一个随便玩玩的软件
-This is an application for playing.
+这只是一个随便玩玩的软件，该版本已经停止更新
